@@ -31,7 +31,7 @@ python demo.py
 
 
 ##System description 
-(./img/system.png)
+![fsm](./img/system.png)
 
 
 
