@@ -16,7 +16,7 @@ context = ('ssl/fullchain.crt', 'ssl/private.key')
 
 app = Flask(__name__)
 bot = telegram.Bot(token=API_TOKEN)
-#client = apiai.ApiAI("b7de777391ec48329e192fe579d23e1")
+##client = apiai.ApiAI("b7de777391ec48329e192fe579d23e1")
 machine = TocMachine(
     states=[
         'user',
