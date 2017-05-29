@@ -19,7 +19,7 @@ python demo.py
 ## Finite State Machine
 ![fsm](./img/show-fsm.png)
 
-##Usage 
+## Usage 
 初始State都是在'user'
 這次作業我設計了三個功能, 選擇第一項會進入State1 , 第二項會進入到State2, 第三項會進入到State3
 
@@ -33,6 +33,8 @@ python demo.py
 ## System description 
 ![fsm](./img/system.png)
 
+User input 首先會透過Intent classification來判斷說這句話的Intent, Ex: "ok","yes"這兩句判斷就是一樣的意思,"Show recommendation","Need recommendation"也是一樣, 分析出來的Intent會傳至Machine中做State transition,並且也傳至Action decision 去根據User所需要的資料來決定Action , Action會透過Spotify API從Spotify 裡面撈資料, 回傳給使用者
+ 
 
 
 
