@@ -30,7 +30,8 @@ python demo.py
 3.透過歌手查詢該歌手Top 10 tracks, 輸入歌手會進到State9,Bot會顯示出Tracks並且詢問是否要聆聽這份list, 目前預設是使用者都會打 "yes" 
 
 
-##System Architecture 
+##System description 
+(./img/system.png)
 
 
 
