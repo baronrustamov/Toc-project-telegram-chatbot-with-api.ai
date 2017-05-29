@@ -165,6 +165,7 @@ def action(save_text,api_return,update):
     if api_return=="find_album_by_enter_singer" and machine.state=="state9":
         artist = get_artist(save_text)
         show_top_track(artist,update)
+        
     elif api_return=="find_album_by_enter_singer":
         artist = get_artist(save_text)
         show_artist_albums(artist,update)
@@ -201,6 +202,7 @@ def show_artist_albums(artist,update):
         final = final + "\n"+ name
         if name not in seen:
             seen.add(name)
+
     update.message.reply_text(final)
 
 def show_recommendations_for_artist(artist,update):
@@ -228,6 +230,7 @@ def show_album_tracks(album,update):
     for track in tracks['items']:
         #print(track['name'])
         final = final + "\n"+ track['name']
+
     update.message.reply_text(final)
     update.message.reply_text("Do you want to play the album ?")
 
@@ -237,6 +240,7 @@ def show_top_track(artist,update):
     for track in response['tracks']:
         #print(track['name'])
         final = final + "\n"+ track['name']
+
     update.message.reply_text(final)
     update.message.reply_text("Do you want to play these tracks ?")
 
