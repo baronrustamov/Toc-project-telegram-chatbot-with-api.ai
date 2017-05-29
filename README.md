@@ -11,7 +11,7 @@ A telegram bot based on a finite state machine
 * api.ai
 ### Webhook URL
 這次作業我沒有使用助教給的ngrok，因為實驗室剛好需要買一個實體Domain來做chatbot的接口,
-故我直接使用實驗室的Domain name, 來當作Webhook的URL,
+故我直接買了一個Domain name, 來當作Webhook的URL,
 #### Run the server
 ```sh
 python demo.py
@@ -31,6 +31,8 @@ python demo.py
 
 3.透過歌手查詢該歌手Top 10 tracks, 輸入歌手會進到State9,Bot會顯示出Tracks並且詢問是否要聆聽這份list, 目前預設是使用者都會打 "yes" 
 
+到達每個分支最後一個State輸入"/end"就會回到User state
+輸入"/check_state" 則能查到目前所在狀態
 
 ## System description 
 ![fsm](./img/system.png)
