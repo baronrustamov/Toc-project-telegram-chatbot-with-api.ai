@@ -9,7 +9,7 @@ class TocMachine(GraphMachine):
 
     def is_going_to_state1(self, update):
         text = update.message.text
-        #print("check1")
+        ##print("check1")
         return text == 'find_album_from_state0'
 
     def is_going_to_state2(self, update):

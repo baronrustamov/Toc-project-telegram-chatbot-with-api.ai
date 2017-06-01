@@ -109,7 +109,7 @@ machine = TocMachine(
 )
 def intent_parser(input):
     # Initialize API.AI client
-    #global client
+    # global client
     client = apiai.ApiAI("b7de777391ec48329e192fe579d23e1c")
 
     # Create new request

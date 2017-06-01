@@ -10,6 +10,10 @@ A telegram bot based on a finite state machine
 * spotipy 
 * api.ai
 * telegram
+#### Install Dependency
+```sh
+pip install -r requirements.txt
+```
 ### Webhook URL
 這次作業我沒有使用助教給的ngrok，因為實驗室剛好需要買一個Domain name來做chatbot的接口(大多數的Chat API都需要),故我直接買了一個Domain name給實驗室的IP, 來當作Webhook的URL.
 #### Run the server
