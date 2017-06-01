@@ -42,7 +42,7 @@ python demo.py
 ![fsm](./img/system.png)
 
 User input 首先會透過Intent classification來判斷說這句話的Intent 
-* Ex: 在我的Bot中"ok","yes"這兩句判斷會是一樣的意思,"Show recommendation","Need recommendation"也是一樣,"Find by coldplay"這句話也能認出你是要找Coldplay的資訊
+* Ex: 在我的Bot中"ok"和"yes"這兩句判斷會是一樣的意思,"Show recommendation"和"Need recommendation"也是一樣, "Find by coldplay"這句話也能認出你是要找Coldplay的資訊,
 分析出來的Intent會傳至Machine中做State transition, 並且也傳至Action decision去根據User所需要的資料來決定Action, Action會透過Spotify API從Spotify 裡面撈資料, 回傳給使用者.
 ### Intent classification
 * Intent判斷的部份是透過api.ai, api.ai是一款適合Dialogue Systems的Intent classification Agent，先設定好Intent，Entity並且指定他回傳的資料, 就可以很輕鬆的完成Intent classification.其中裡面還能繼續上傳檔案作Training, 讓Agent更加聰明能認出以前沒看過的字並且增加判斷正確的機率 ,原先一開始是想透過Slot filling配合RNN自己Train出一個NN, 但發現時間及Training data 不夠, 故選用這個方便的API.
