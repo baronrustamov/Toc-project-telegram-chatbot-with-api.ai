@@ -51,7 +51,7 @@ User input 首先會透過Intent classification來判斷說這句話的Intent
 * Spotify的部份是因為我有訂閱會員, 所以可以使用它的Application開發模式, 透過這個API我能輕鬆取得專輯, 歌手, 歌曲的資料, 不過每次撈資料都要連過去撈, 這樣還是會花費一點時間, 做這種任務取向的Bot還是使用一個已存取Entity之間關係的資料庫配合Slot filling是最佳解.
 
 
-### Input Example 
+## Input Example 
 ![fsm](./img/Recommended.png) 
 ![fsm](./img/top_track.png)
 
