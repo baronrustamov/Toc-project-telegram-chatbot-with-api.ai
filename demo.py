@@ -9,12 +9,14 @@ import apiai
 import json
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from flask.ext.cache import Cache
 
 API_TOKEN = '249725860:AAERnYX5uniAFdV9cd7yKd4Y_tfJ5tqSX8g'
 WEBHOOK_URL = 'https://ikmchatbot.com:8443/telegram_try/'
 context = ('ssl/fullchain.crt', 'ssl/private.key')
 
 app = Flask(__name__)
+cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 bot = telegram.Bot(token=API_TOKEN)
 ##client = apiai.ApiAI("b7de777391ec48329e192fe579d23e1")
 machine = TocMachine(
@@ -101,6 +103,13 @@ machine = TocMachine(
                 'state10'
             ],
             'dest': 'user'
+        },
+        {
+            'trigger': 'go_back1',
+            'source': [
+                'state4',
+            ],
+            'dest': 'state1'
         }
     ],
     initial='user',
@@ -133,7 +142,7 @@ def _set_webhook():
 @app.route('/telegram_try/', methods=['POST'])
 def webhook_handler():
     update = telegram.Update.de_json(request.get_json(force=True), bot)
-   
+    state = cache.get(update.message.chat.id) or 'user'
     if update.message.text == "/start":
         update.message.reply_text("Find album?\nNeed recommendation?\nFind artist's top track?\nEnd the task by enter '/end' ")
     
@@ -148,9 +157,16 @@ def webhook_handler():
         save_text=update.message.text
         current_intent,try_output=intent_parser(update.message.text)
         update.message.text=current_intent
-        #print (current_intent)
+        #print ("HERE!:",current_intent)
+        if(machine.state!=state):
+        	machine.set_state(state)
         machine.advance(update)
         action(try_output,current_intent,update)
+    print(update.message.chat.id)
+    print (cache)
+    
+    cache.set(update.message.chat.id, machine.state)
+
     return 'ok'
 
 
@@ -166,14 +182,14 @@ def action(save_text,api_return,update):
         artist = get_artist(save_text)
         show_top_track(artist,update)
         
-    elif api_return=="find_album_by_enter_singer":
+    elif api_return=="find_album_by_enter_singer" and machine.state =="state4":
         artist = get_artist(save_text)
         show_artist_albums(artist,update)
     
-    elif api_return=="list_song_by_album_name":
+    elif api_return=="list_song_by_album_name" and machine.state=="state5":
         show_album_tracks(save_text,update)
     
-    elif api_return=="recommend_by_singer":
+    elif api_return=="recommend_by_singer" and machine.state=="state7" :
         artist = get_artist(save_text)
         show_recommendations_for_artist(artist,update)
 
@@ -189,7 +205,15 @@ def get_artist(name):
 #decode the json file get the artist id and find artist's album
 def show_artist_albums(artist,update):
     albums = []
-    results = sp.artist_albums(artist['id'], album_type='album')
+    try:
+    	results = sp.artist_albums(artist['id'], album_type='album')
+
+    except: 
+    	print("exception")
+    	update.message.reply_text("Can't find this artist's data\nPlease enter artist again\n(I will go back to state1)")
+    	machine.go_back1(update)
+    	return None
+
     albums.extend(results['items'])
     while results['next']:
         results = sp.next(results)
